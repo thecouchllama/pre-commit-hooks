@@ -33,6 +33,11 @@ set -e
 # workaround to allow GitHub Desktop to work, add this (hopefully harmless) setting here.
 export PATH=$PATH:/usr/local/bin
 
+# Create a realpath function so that this works in MacOS
+realpath() {
+  [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
+}
+
 # Take the current working directory to know when to stop walking up the tree
 readonly cwd_abspath="$(realpath "$PWD")"
 
