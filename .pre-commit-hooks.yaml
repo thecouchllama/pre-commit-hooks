@@ -19,5 +19,5 @@
   description: Run kuttl tests
   entry: hooks/kuttl.sh
   language: script
-  files: ^kuttl-test.yaml$
+  files: kuttl-test.yaml$
   require_serial: true
