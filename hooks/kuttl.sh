@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Run helm lint on the chart path.
 # A typical helm chart directory structure looks as follows:
 #
@@ -133,11 +135,14 @@ for file in "$@"; do
       else
         kind create cluster --name precommit --kubeconfig="$KCONFIG"
       fi
-      KUBECONFIG=$KCONFIG kubectl kuttl test
-      RETURNCODE="$?"
-      kind delete cluster --name precommit --kubeconfig="$KCONFIG"
-      #rm "$KCONFIG"
+      if KUBECONFIG=$KCONFIG kubectl kuttl test; then
+        kind delete cluster --name precommit --kubeconfig="$KCONFIG"
+        rm "$KCONFIG"
+      else
+        kind delete cluster --name precommit --kubeconfig="$KCONFIG"
+        rm "$KCONFIG"
+        exit 1
+      fi
     fi
   fi
 done
-exit "$RETURNCODE"
