@@ -133,11 +133,17 @@ for file in "$@"; do
       else
         kind create cluster --name precommit --kubeconfig="$KCONFIG"
       fi
-      KUBECONFIG=$KCONFIG kubectl kuttl test
-      RETURNCODE="$?"
+      if ! KUBECONFIG=$KCONFIG kubectl kuttl test; then
+        FAIL=1
+      else
+        FAIL=0
+      fi
       kind delete cluster --name precommit --kubeconfig="$KCONFIG"
       #rm "$KCONFIG"
     fi
   fi
 done
-exit "$RETURNCODE"
+
+if [[ "$FAIL" -gt 0 ]]; then
+  exit 1
+fi
