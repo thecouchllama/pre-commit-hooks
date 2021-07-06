@@ -14,10 +14,10 @@
   files: \.((ya?ml)|(tpl))$
   require_serial: true
 
-- id: kuttl
-  name: kuttl
+- id: helm-kuttl
+  name: helm-kuttl
   description: Run kuttl tests
-  entry: hooks/kuttl.sh
+  entry: hooks/helm-kuttl.sh
   language: script
-  files: kuttl-test.yaml$
+  files: \.((ya?ml)|(tpl))$
   require_serial: true
