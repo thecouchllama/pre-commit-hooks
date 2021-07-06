@@ -5,10 +5,19 @@
   language: script
   files: \.((ya?ml)|(tpl))$
   require_serial: true
+
 - id: helm-unittest
   name: helm-unittest
   description: Run helm unittest
   entry: hooks/helm-unittest.sh
   language: script
   files: \.((ya?ml)|(tpl))$
+  require_serial: true
+
+- id: kuttl
+  name: kuttl
+  description: Run kuttl tests
+  entry: hooks/kuttl.sh
+  language: script
+  files: ^kuttl-test.yaml$
   require_serial: true
